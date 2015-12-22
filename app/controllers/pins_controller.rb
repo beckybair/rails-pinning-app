@@ -7,11 +7,32 @@ class PinsController < ApplicationController
   def show
     @pin = Pin.find(params[:id])
   end
-  
+
   def show_by_name
     #search for a Pin using the slug you grab from the URL
     @pin = Pin.find_by_slug(params[:slug])
     render :show
   end
   
+  def new
+    @pin = Pin.new
+  end
+
+  def create
+    @pin = Pin.create(pin_params)
+    if @pin.valid?
+      @pin.save
+      redirect_to pin_path(@pin)
+    else
+      @errors = @pin.errors.full_messages
+      render :new
+    end
+  end
+  
+  private
+
+  def pin_params
+    params.require(:pin).permit(:title, :url, :slug, :text, :category_id)
+  end
+
 end

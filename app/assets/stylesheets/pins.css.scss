@@ -25,3 +25,33 @@ hr{
 body {
   background: url(asset-path('laptop-background.jpg')) no-repeat;
 }
+.new_pin {
+  width: 500px;
+  padding-left: 20px;
+}
+.input-group {
+  margin: 0 5px 0 0;
+}
+.input-group-addon {
+  border-radius: 5%;
+  padding: 0 20px;
+  margin: 0;
+  display: initial;
+  padding: 1px;
+  border: 2px;
+}
+.input-group label {
+  padding: 0 5px 0 0;
+}
+.submit-button input {
+  margin: 25px 0 0 110px;
+}
+.div-select select {
+  width: 120px;
+  margin: 0 0 0 7px;
+}
+.error {
+  color: red;
+  font-style: italic;
+  font-weight: bold;
+}
