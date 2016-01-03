@@ -81,4 +81,84 @@ RSpec.describe PinsController do
     end    
   end
   
+  describe "GET edit" do
+
+    before(:each) do
+      @pin = Pin.find(1)   
+    end
+    
+    # get to pins/id/edit
+    # responds successfully
+    it 'responds with success' do
+      get :edit, id: @pin.id
+      expect(response.success?).to be(true)
+    end
+    
+    # renders the edit template
+    it 'renders the edit template' do
+      get :edit, id: @pin.id
+      expect(response).to render_template(:edit)
+      expect(response).to be_success
+    end
+    
+    # assigns an instance variable called @pin to the Pin with the appropriate id
+    it 'assigns an instance variable called @pin to the Pin with the appropriate id' do
+      get :edit, id: @pin.id
+      expect(assigns(:pin)).to eq(@pin)
+    end
+  end
+
+  # making a POST request to /pins with valid parameters
+  describe "PUT update" do
+    let(:attr) do
+      {:title => "new title"}
+    end
+
+    before(:each) do
+      @pin = Pin.find(1)
+      put :update, id: @pin.id, :pin => attr
+      @pin.reload      
+    end
+
+    # responds with success
+    it 'responds with success' do
+      expect(@pin.title).to eq attr[:title]
+    end
+
+    # updates a pin
+    it 'updates a pin' do
+      expect(Pin.find_by_title(attr[:title]).present?).to be(true)
+    end
+
+    # redirects to the show view
+    it 'redirects to the show view' do
+      expect(response).to redirect_to(pin_url(@pin))
+    end
+  end
+
+  describe "PUT Update Errors" do
+    before(:each) do
+      @pin = Pin.find(1)   
+    end
+    
+    # making a POST request to /pins with invalid parameters
+    it 'redisplays edit form on error' do
+      # The title is required in the Pin model, so we'll
+      # delete the title from the @pin in order
+      # to test what happens with invalid parameters
+      put :update, id: @pin, pin: {title: nil}
+      # renders the edit view
+      expect(response).to  render_template(:edit)
+    end
+    
+    it 'assigns the @errors instance variable on error' do
+      # The title is required in the Pin model, so we'll
+      # delete the title from the @pin in order
+      # to test what happens with invalid parameters
+      put :update, id: @pin, pin: {title: nil}
+      # assigns an @errors instance variable
+      expect(assigns[:errors].present?).to be(true)
+    end    
+  end
+
 end

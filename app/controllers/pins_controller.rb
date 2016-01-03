@@ -20,8 +20,7 @@ class PinsController < ApplicationController
 
   def create
     @pin = Pin.create(pin_params)
-    if @pin.valid?
-      @pin.save
+    if @pin.save
       redirect_to pin_path(@pin)
     else
       @errors = @pin.errors.full_messages
@@ -29,6 +28,21 @@ class PinsController < ApplicationController
     end
   end
   
+  def edit
+    @pin = Pin.find(params[:id])
+    render :edit
+  end
+
+  def update
+    @pin = Pin.find(params[:id])
+    if @pin.update_attributes(pin_params)
+      redirect_to pin_path(@pin)
+    else
+      @errors = @pin.errors.full_messages
+      render :edit
+    end
+  end
+
   private
 
   def pin_params

@@ -1,4 +1,4 @@
-<h1>Create a New Pin</h1>
+<h1>Edit a Pin</h1>
 
 <%= form_for @pin do |f| %>
 <%= render 'shared/error_messages' %>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="submit-button">
-      <%= f.submit %>
+      <%= f.submit "Edit Pin", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>
