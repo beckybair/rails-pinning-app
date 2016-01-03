@@ -1,0 +1,34 @@
+<%= form_for @pin do |f| %>
+<%= render 'shared/error_messages' %>
+
+  <div class="form-group">
+    <div>
+      <label for="pin_title">Title</label>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="div-select"> 
+      <label for="pin_category_id">Category</label>
+      <%= f.collection_select(:category_id, Category.all, :id, :name) %>
+    </div>
+
+    <div>
+      <label for="pin_slug">Slug</label>
+      <%= f.text_field :slug %>
+    </div>   
+
+    <div>
+      <label for="pin_url">URL</label>
+      <%= f.text_field :url %>
+    </div>
+
+    <div>
+      <label for="pin_text">Text</label>
+      <%= f.text_area :text %>
+    </div>
+
+    <div class="submit-button">
+      <%= f.submit "Submit", class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
