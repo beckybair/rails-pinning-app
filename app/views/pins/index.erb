@@ -12,18 +12,24 @@
             <div class="pin-header row">
 
               <div class="logo-thumbnail col-xs-3">
-                <% if "#{pin.category.name}" == "rails" %>
-                  <%= image_tag('rails-logo-thumbnail.png') %>
-                <% elsif "#{pin.category.name}" == "ruby" %>
-                  <%= image_tag('ruby-logo-thumbnail.png') %>
+                <% if pin.image? %>
+                  <img src="<%= pin.image.url(:thumb) %>">
+                <% else %>
+                  <% if "#{pin.category.name}" == "rails" %>
+                    <%= image_tag('rails-logo-thumbnail.png') %>
+                  <% elsif "#{pin.category.name}" == "ruby" %>
+                    <%= image_tag('ruby-logo-thumbnail.png') %>
+                  <% end %>
                 <% end %>
               </div>
-<div class="pin-title col-xs-9">
-    <h4>
-      <%= link_to "#{pin.title}", pin_by_name_path(slug: pin.slug) %>
-    </h4>
-    <%= link_to "#{pin.url.truncate(30)}", pin.url, html_options = {target: "_blank", class: "url"} %>
-</div>
+
+              <div class="pin-title col-xs-9">
+                  <h4>
+                    <%= link_to "#{pin.title}", pin_by_name_path(slug: pin.slug) %>
+                  </h4>
+                  <%= link_to "#{pin.url.truncate(30)}", pin.url, html_options = {target: "_blank", class: "url"} %>
+              </div>
+
             </div>
             <hr/>
             <p class="text"><%= "#{pin.text}" %></p>
