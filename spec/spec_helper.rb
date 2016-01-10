@@ -10,4 +10,5 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     Rails.application.load_seed # loading seeds
   end
+  
 end
