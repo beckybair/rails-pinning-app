@@ -1,16 +1,28 @@
 Rails.application.routes.draw do
+
+  #get 'sessions/new'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'pins#index'
-  
+
   get "pins/name-:slug" => "pins#show_by_name", as: 'pin_by_name'
-  
+
   resources :pins
-    
+
+  resources :users, except: [:index]
+
   get '/library' => 'pins#index'
-  
+
+  get 'signup' => 'users#new', as: :signup
+
+  get '/login' => 'users#login'
+  post '/login' => 'users#authenticate'
+  # get "login" => "sessions#new", :as => "login"
+  #get "logout" => "sessions#destroy", :as => "logout"
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

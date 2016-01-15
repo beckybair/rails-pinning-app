@@ -1,39 +1,39 @@
 <%= form_for(@pin, multipart: true) do |f| %>
-<%= render 'shared/error_messages' %>
+<%= render 'shared/pin_error_messages' %>
 
   <div class="form-group">
-    <div>
-      <label for="pin_title">Title</label>
+    <p>
+      <label for="pin_title">Title</label><br />
       <%= f.text_field :title %>
-    </div>
+    </p>
 
-    <div class="div-select"> 
+    <p class="p-select"> 
       <label for="pin_category_id">Category</label>
       <%= f.collection_select(:category_id, Category.all, :id, :name) %>
-    </div>
+    </p>
 
-    <div>
-      <label for="pin_slug">Slug</label>
+    <p>
+      <label for="pin_slug">Slug</label><br />
       <%= f.text_field :slug %>
-    </div>   
+    </p>   
 
-    <div>
-      <label for="pin_url">URL</label>
+    <p>
+      <label for="pin_url">URL</label><br />
       <%= f.text_field :url %>
-    </div>
+    </p>
 
-    <div>
-      <label for="pin_text">Text</label>
+    <p>
+      <label for="pin_text">Text</label><br />
       <%= f.text_area :text %>
-    </div>
+    </p>
 
-    <div class="form-group">
-      <label for="pin_image">Image</label>
+    <p class="form-group">
+      <label for="pin_image">Image</label><br />
       <%= f.file_field :image  %>
-    </div>
+    </p>
 
-    <div class="submit-button">
+    <p class="submit-button">
       <%= f.submit "Submit", class: "btn btn-primary" %>
-    </div>
+    </p>
   </div>
 <% end %>
