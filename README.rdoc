@@ -5,7 +5,9 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version:  Ruby2.1.7p400 (2015-08-18 revision 51632) [x64-mingw32]
+
+* Rails version:  Rails 4.2.0
 
 * System dependencies
 
@@ -15,7 +17,7 @@ Things you may want to cover:
 
 * Database initialization
 
-* How to run the test suite
+* How to run the test suite: rspec spec
 
 * Services (job queues, cache servers, search engines, etc.)
 
