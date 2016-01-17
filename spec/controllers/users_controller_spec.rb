@@ -163,9 +163,9 @@ RSpec.describe UsersController, type: :controller do
 
   describe "POST login" do
     before(:all) do
-      @user = User.create(email: "coder@skillcrush.com", password_digest: "secret")
-      @valid_user_hash = {email: @user.email, password_digest: @user.password}
-      @invalid_user_hash = {email: "", password_digest: ""}
+      @user = User.create(email: "coder@skillcrush.com", password: "secret")
+      @valid_user_hash = {email: @user.email, password: @user.password}
+      @invalid_user_hash = {email: "", password: ""}
     end
 
     after(:all) do
