@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get '/login' => 'users#login'
   post '/login' => 'users#authenticate'
-  delete 'logout/:id' => "users#logout", as: :logout
+  delete 'logout' => "users#logout", as: :logout
   # get "login" => "sessions#new", :as => "login"
   #get "logout" => "sessions#destroy", :as => "logout"
 
