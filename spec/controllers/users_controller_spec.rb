@@ -42,7 +42,7 @@ RSpec.describe UsersController, type: :controller do
   let(:invalid_attributes) {
     {
       first_name: @user.first_name,
-      password: @user.password
+      # password: @user.password
     }
   }
 
