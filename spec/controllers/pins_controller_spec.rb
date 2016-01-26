@@ -6,7 +6,7 @@ RSpec.describe PinsController do
       get :index
       expect(response).to render_template("index")
     end
-    
+
     it 'populates @pins with all pins' do
       get :index
       expect(assigns[:pins]).to eq(Pin.all)
@@ -18,50 +18,50 @@ RSpec.describe PinsController do
       get :new
       expect(response.success?).to be(true)
     end
-    
+
     it 'renders the new view' do
-      get :new      
+      get :new
       expect(response).to render_template(:new)
     end
-    
+
     it 'assigns an instance variable to a new pin' do
       get :new
       expect(assigns(:pin)).to be_a_new(Pin)
     end
   end
-  
+
   describe "POST create" do
     before(:each) do
-      @pin_hash = { 
-        title: "Rails Wizard", 
-        url: "http://railswizard.org", 
-        slug: "rails-wizard", 
+      @pin_hash = {
+        title: "Rails Wizard",
+        url: "http://railswizard.org",
+        slug: "rails-wizard",
         text: "A fun and helpful Rails Resource",
-        category_id: "2"}    
+        category_id: "2"}
     end
-    
+
     after(:each) do
       pin = Pin.find_by_slug("rails-wizard")
       if !pin.nil?
         pin.destroy
       end
     end
-    
+
     it 'responds with a redirect' do
       post :create, pin: @pin_hash
       expect(response.redirect?).to be(true)
     end
-    
+
     it 'creates a pin' do
-      post :create, pin: @pin_hash  
+      post :create, pin: @pin_hash
       expect(Pin.find_by_slug("rails-wizard").present?).to be(true)
     end
-    
+
     it 'redirects to the show view' do
       post :create, pin: @pin_hash
       expect(response).to redirect_to(pin_url(assigns(:pin)))
     end
-    
+
     it 'redisplays new form on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
@@ -70,7 +70,7 @@ RSpec.describe PinsController do
       post :create, pin: @pin_hash
       expect(response).to render_template(:new)
     end
-    
+
     it 'assigns the @errors instance variable on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin_hash in order
@@ -78,29 +78,29 @@ RSpec.describe PinsController do
       @pin_hash.delete(:title)
       post :create, pin: @pin_hash
       expect(assigns[:errors].present?).to be(true)
-    end    
+    end
   end
-  
+
   describe "GET edit" do
 
     before(:each) do
-      @pin = Pin.find(1)   
+      @pin = Pin.find(1)
     end
-    
+
     # get to pins/id/edit
     # responds successfully
     it 'responds with success' do
       get :edit, id: @pin.id
       expect(response.success?).to be(true)
     end
-    
+
     # renders the edit template
     it 'renders the edit template' do
       get :edit, id: @pin.id
       expect(response).to render_template(:edit)
       expect(response).to be_success
     end
-    
+
     # assigns an instance variable called @pin to the Pin with the appropriate id
     it 'assigns an instance variable called @pin to the Pin with the appropriate id' do
       get :edit, id: @pin.id
@@ -117,7 +117,7 @@ RSpec.describe PinsController do
     before(:each) do
       @pin = Pin.find(1)
       put :update, id: @pin.id, :pin => attr
-      @pin.reload      
+      @pin.reload
     end
 
     # responds with success
@@ -138,9 +138,9 @@ RSpec.describe PinsController do
 
   describe "PUT Update Errors" do
     before(:each) do
-      @pin = Pin.find(1)   
+      @pin = Pin.find(1)
     end
-    
+
     # making a POST request to /pins with invalid parameters
     it 'redisplays edit form on error' do
       # The title is required in the Pin model, so we'll
@@ -148,9 +148,9 @@ RSpec.describe PinsController do
       # to test what happens with invalid parameters
       put :update, id: @pin, pin: {title: nil}
       # renders the edit view
-      expect(response).to  render_template(:edit)
+      expect(response).to render_template(:edit)
     end
-    
+
     it 'assigns the @errors instance variable on error' do
       # The title is required in the Pin model, so we'll
       # delete the title from the @pin in order
@@ -158,7 +158,7 @@ RSpec.describe PinsController do
       put :update, id: @pin, pin: {title: nil}
       # assigns an @errors instance variable
       expect(assigns[:errors].present?).to be(true)
-    end    
+    end
   end
 
 end

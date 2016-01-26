@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_login, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -66,12 +67,17 @@ class UsersController < ApplicationController
 
   def authenticate
     @user = User.authenticate(params[:email], params[:password])
-    if @user.present?
-      render :show
-    else
-      @errors = "Either wrong email or wrong password was used"
+    if @user.nil?
+      @errors = "Either email or password is incorrect"
       render :login
+    else
+      session[:user_id] = @user.id
+      redirect_to user_path(@user)
     end
+  end
+
+  def logout
+    session.delete(:user_id)
   end
 
   private
@@ -83,5 +89,12 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password)
+    end
+
+    # Redirect the user to the login page if the current_user is nil
+    def require_login
+      if current_user.nil?
+        redirect_to login_path(@user)
+      end
     end
 end
