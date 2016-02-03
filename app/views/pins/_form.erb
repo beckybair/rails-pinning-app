@@ -2,12 +2,13 @@
 <%= render 'shared/pin_error_messages' %>
 
   <div class="form-group">
+    <%= f.hidden_field :user_id, value: current_user.id %>
     <p>
       <label for="pin_title">Title</label><br />
       <%= f.text_field :title %>
     </p>
 
-    <p class="p-select"> 
+    <p class="p-select">
       <label for="pin_category_id">Category</label>
       <%= f.collection_select(:category_id, Category.all, :id, :name) %>
     </p>
@@ -15,7 +16,7 @@
     <p>
       <label for="pin_slug">Slug</label><br />
       <%= f.text_field :slug %>
-    </p>   
+    </p>
 
     <p>
       <label for="pin_url">URL</label><br />

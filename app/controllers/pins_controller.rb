@@ -1,9 +1,11 @@
+# Pins Controller Class
 class PinsController < ApplicationController
-  
+  before_action :require_login, only: [:index, :show, :show_by_name]
+
   def index
-    @pins = Pin.all
+    @pins = Pin.find_by_user_id(current_user.id)
   end
-  
+
   def show
     @pin = Pin.find(params[:id])
   end
@@ -13,7 +15,7 @@ class PinsController < ApplicationController
     @pin = Pin.find_by_slug(params[:slug])
     render :show
   end
-  
+
   def new
     @pin = Pin.new
   end
@@ -27,7 +29,7 @@ class PinsController < ApplicationController
       render :new
     end
   end
-  
+
   def edit
     @pin = Pin.find(params[:id])
     render :edit
@@ -46,7 +48,7 @@ class PinsController < ApplicationController
   private
 
   def pin_params
-    params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image)
+    params.require(:pin).permit(:title, :url, :slug, :text, :category_id, :image, :user_id)
   end
 
 end
