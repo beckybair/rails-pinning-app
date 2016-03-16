@@ -23,6 +23,6 @@ RSpec.configure do |config|
   def logout(user)
     if session[:user_id] == user.id
       session.delete(:user_id)
-    end
+    end 
   end
 end
