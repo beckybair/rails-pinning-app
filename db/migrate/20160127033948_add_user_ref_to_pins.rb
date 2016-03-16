@@ -12,12 +12,12 @@ class AddUserRefToPins < ActiveRecord::Migration
 
     if user.present?
       Pin.all.each do |pin|
-        pin.user = user
+        pin.user_id = user.id
         pin.save
       end
     else
       puts "User not present"
-    end    
+    end
 
   end
 end

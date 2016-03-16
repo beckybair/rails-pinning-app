@@ -8,10 +8,10 @@ RSpec.describe "Our Application Routes" do
       expect(response).to render_template("pins/show")
     end
   end
-  
+
   it 'populates the @pin variable with the appropriate pin' do
     pin = Pin.first
     get "/pins/name-#{pin.slug}"
-    expect(assigns[:pin]).to eq(pin)  
+    expect(assigns[:pin]).to eq(pin)
   end
 end
