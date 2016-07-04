@@ -3,16 +3,18 @@ class PinsController < ApplicationController
   before_action :require_login, except: [:index, :show, :show_by_name]
 
   def index
-    @pins = Pin.where(:user_id => (:current_user))
+    @pins = Pin.all
   end
 
   def show
     @pin = Pin.find(params[:id])
+    @users = @pin.users
   end
 
   def show_by_name
     #search for a Pin using the slug you grab from the URL
     @pin = Pin.find_by_slug(params[:slug])
+    @users = @pin.users
     render :show
   end
 
@@ -43,6 +45,12 @@ class PinsController < ApplicationController
       @errors = @pin.errors.full_messages
       render :edit
     end
+  end
+
+  def repin
+    @pin = Pin.find(params[:id])
+    @pin.pinnings.create(user: current_user)
+    redirect_to user_path(current_user)
   end
 
   private

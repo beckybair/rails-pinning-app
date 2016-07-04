@@ -17,7 +17,7 @@ h1 {
 }
 .show-pin{
   background-color: #fff;
-  padding: 40px;  
+  padding: 40px;
 }
 hr{
   clear:both;
@@ -51,6 +51,13 @@ body {
 .p-select select {
   width: 120px;
   margin: 0 0 0 7px;
+}
+.repin-button .btn-default {
+  margin: 25px 0 0 0;
+  float: right;
+  background: #dd5566;
+  color: #ffffff;
+  border: none;
 }
 
 /* forms */

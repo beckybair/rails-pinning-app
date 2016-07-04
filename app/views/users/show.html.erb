@@ -1,3 +1,8 @@
+<div class="header">
+  <h1>Your Pins</h1>
+</div>
+<hr/>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -21,4 +26,61 @@
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', root_path %>
+
+<hr/>
+<div class="pins">
+  <% if @pins %>
+    <% @pins.each_slice(3) do |row| %>
+      <div class="row">
+        <% row.each do |pin| %>
+          <div class="pin-container col-md-4">
+            <div class="pin">
+              <div class="pin-header row">
+
+                <div class="logo-thumbnail col-xs-3">
+                  <% if pin.image? %>
+                    <img src="<%= pin.image.url(:thumb) %>">
+                  <% else %>
+                    <% if "#{pin.category.name}" == "rails" %>
+                      <%= image_tag('rails-logo-thumbnail.png') %>
+                    <% elsif "#{pin.category.name}" == "ruby" %>
+                      <%= image_tag('ruby-logo-thumbnail.png') %>
+                    <% end %>
+                  <% end %>
+                </div>
+
+                <div class="pin-title col-xs-9">
+                    <h4>
+                      <%= link_to "#{pin.title}", pin_by_name_path(slug: pin.slug) %>
+                    </h4>
+                    <%= link_to "#{pin.url.truncate(30)}", pin.url, html_options = {target: "_blank", class: "url"} %>
+                </div>
+                <hr/>
+                <p class="text"><%= "#{pin.text}" %></p>
+                <p class="repin-button">
+                  <%= link_to repin_path(pin), class: "btn btn-default", method: "post" do %>
+                    <i class="fa fa-thumb-tack"></i>
+                    Repin!
+                  <% end %>
+                </p>
+
+              </div>
+              <hr/>
+              <p class="text"><%= "#{pin.text}" %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <h4>You do not have any pins saved yet!</h4>
+  <% end %>
+  <h4>Add a new one here:
+    <a href= <%= "#{new_pin_path}" %> >
+      <i class="fa fa-plus"></i>  Add New Pin
+    </a>
+  </h4>
+</div>
+
+<hr/>

@@ -212,6 +212,7 @@ RSpec.describe UsersController, type: :controller do
 
   describe "GET login" do
     it "renders the login view" do
+    #  expect(response).to render_template("login")
     end
   end
 

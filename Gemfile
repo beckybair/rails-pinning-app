@@ -53,4 +53,7 @@ group :test do
   gem 'rspec-rails'
   gem 'factory_girl'
   gem 'whiny_validation'
+  gem 'minitest-reporters'
+  gem 'mini_backtrace'
+  gem 'guard-minitest'
 end

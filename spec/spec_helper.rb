@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'factory_girl'
+require "minitest/reporters"
+Minitest::Reporters.use!
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
@@ -23,6 +25,6 @@ RSpec.configure do |config|
   def logout(user)
     if session[:user_id] == user.id
       session.delete(:user_id)
-    end 
+    end
   end
 end

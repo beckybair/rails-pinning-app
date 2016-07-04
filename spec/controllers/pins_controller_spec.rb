@@ -8,7 +8,7 @@ RSpec.describe PinsController do
 
   after(:each) do
     if !@user.destroyed?
-      @user.destroy
+      logout(@user)
     end
   end
 
@@ -18,9 +18,9 @@ RSpec.describe PinsController do
       expect(response).to render_template("index")
     end
 
-    it 'populates @pins with current users pins' do
+    it 'populates @pins with all pins' do
       get :index
-      expect(assigns[:pins]).to eq(Pin.find_by_user_id(@user.id))
+      expect(assigns[:pins]).to eq(Pin.all)
     end
   end
 
@@ -171,5 +171,39 @@ RSpec.describe PinsController do
       expect(assigns[:errors].present?).to be(true)
     end
   end
+  describe "POST repin" do
+    # These tests will require a @pin and a logged in user, so let’s set up the before conditions,
+    # and the cleanup after.
+    before(:each) do
+      @user = FactoryGirl.create(:user)
+      login(@user)
+      @pin = FactoryGirl.create(:pin)
+    end
 
+    after(:each) do
+      pin = Pin.find_by_slug("rails-wizard")
+      if !pin.nil?
+        pin.destroy
+      end
+      logout(@user)
+    end
+
+    # Responds with a redirect
+    it 'responds with a redirect' do
+      post :repin, id: @pin.id
+      expect(response.redirect?).to be(true)
+    end
+
+    # Creates a pinning (the pin is now in the user’s pins)
+    it 'creates a user.pin' do
+      post :repin, id: @pin.id
+      expect(Pin.find_by_id(@pin.id).present?).to be(true)
+    end
+
+    # Redirects to the user’s show page
+    it 'redirects to the user show page' do
+      post :repin, id: @pin.id
+      expect(response).to redirect_to(user_url(@user))
+    end
+  end
 end
