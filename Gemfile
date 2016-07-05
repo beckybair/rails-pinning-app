@@ -33,7 +33,7 @@ gem 'puma'
 gem 'spring'
 
 gem 'rails_12factor'
-gem 'paperclip'
+gem 'paperclip', '< 5.0'
 gem 'aws-sdk', '< 2.0'
 gem 'tzinfo-data'
 gem 'reek'

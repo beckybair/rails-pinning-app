@@ -254,7 +254,7 @@ DEPENDENCIES
   jquery-rails
   mini_backtrace
   minitest-reporters
-  paperclip
+  paperclip (< 5.0)
   pg
   puma
   rails (= 4.2.0)
