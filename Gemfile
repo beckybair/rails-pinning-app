@@ -36,7 +36,6 @@ gem 'rails_12factor'
 gem 'paperclip', '< 5.0'
 gem 'aws-sdk', '< 2.0'
 gem 'tzinfo-data'
-gem 'reek'
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
