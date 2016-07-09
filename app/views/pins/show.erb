@@ -21,12 +21,7 @@
   </p>
 </div>
 <br/>
-<p class="repin-button">
-  <%= link_to repin_path(@pin), class: "btn btn-default", method: "post" do %>
-    <i class="fa fa-thumb-tack"></i>
-    Repin!
-  <% end %>
-</p>
+<%= render partial: "shared/repin_form", locals: {pin: @pin} %>  
 <br/>
 <hr/>
 <h3>All users who have pinned this</h3>

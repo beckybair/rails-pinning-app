@@ -1,0 +1,26 @@
+<div class="header">
+  <h1>Boards Info</h1>
+</div>
+<hr/>
+<p id="notice"><%= notice %></p>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+		<p>
+		  <strong>Board:</strong>
+		  <%= @board.name %>
+		</p>
+
+		<p>
+		  <strong>User:</strong>
+		  <%= @board.user.first_name %>
+		</p>
+	</div>
+</div>
+<hr/>
+<%= render partial: "shared/pins_list" %>
+<hr/>
+<% if @board.user_id == current_user.id %>
+	<%= link_to 'Edit', edit_board_path(@board) %> |
+<% end %>
+<%= link_to 'Back', boards_path %>

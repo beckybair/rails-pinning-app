@@ -14,3 +14,25 @@
  *= require_self
  */
 @import url(https://fonts.googleapis.com/css?family=Lobster);
+
+.nav-btn {
+  background-color: #dd5566;
+  border-color: #dd5566;
+  color: #ffffff;
+}
+.nav-btn:hover {
+  background-color: salmon;
+  color: #ffffff;
+  border-color: salmon;
+}
+.btn-default {
+  margin: 25px 0 0 0;
+  float: right;
+  background: #dd5566;
+  color: #ffffff;
+  border: none;
+}
+.btn-default:hover {
+  background-color: salmon;
+  color: #ffffff;
+}
