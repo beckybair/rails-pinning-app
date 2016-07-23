@@ -25,14 +25,18 @@ class PinsController < ApplicationController
 
   def create
     @pin = Pin.create(pin_params)
+    # if @pin.valid?
+  		# @pin.save
+  		# if params[:pin][:pinning][:board_id] # check if a board is selected
+  		# 	board = Board.find(params[:pin][:pinning][:board_id]) # find the selected board in the db
+  		# 	@pin.pinnings.create!(user: current_user, board: board) # create a new pinning with the user and board as params
+      #   # and let the rails associations take care of the ids
+  		# end
+  		# redirect_to pin_path(@pin)
     if @pin.valid?
-  		@pin.save
-  		if params[:pin][:pinning][:board_id] # check if a board is selected
-  			board = Board.find(params[:pin][:pinning][:board_id]) # find the selected board in the db
-  			@pin.pinnings.create!(user: current_user, board: board) # create a new pinning with the user and board as params
-        # and let the rails associations take care of the ids
-  		end
-  		redirect_to pin_path(@pin)
+      # @pin.save
+      Pinning.create(user_id: session[:user_id], pin_id: @pin.id, board_id: params[:pin][:pinning][:board_id])
+      redirect_to pin_path(@pin)
   	else
   		@errors = @pin.errors
   	  render :new
@@ -56,8 +60,9 @@ class PinsController < ApplicationController
 
   def repin
     @pin = Pin.find(params[:id])
-    @pin.pinnings.create(user: current_user)
-    @pinning = @pin.pinnings.where("user_id=?", current_user)
+    # @pin.pinnings.create(user: current_user)
+    # @pinning = @pin.pinnings.where("user_id=?", current_user)
+    Pinning.create(user_id: session[:user_id], pin_id: @pin.id, board_id: params[:pin][:pinning][:board_id])
     redirect_to user_path(current_user)
   end
 
